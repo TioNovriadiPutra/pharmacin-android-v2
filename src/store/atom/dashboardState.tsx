@@ -1,4 +1,4 @@
-import { DashboardStatType } from "@utils/types/DashboardStateType";
+import { DashboardStatType } from "@utils/types/DashboardStatType";
 import { CustomHeader } from "@utils/types/HeaderType";
 import { atom } from "recoil";
 

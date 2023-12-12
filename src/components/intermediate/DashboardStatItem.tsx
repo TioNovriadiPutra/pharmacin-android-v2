@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { DashboardStatType } from "@utils/types/DashboardStateType";
+import { DashboardStatType } from "@utils/types/DashboardStatType";
 import { colors } from "@themes/colors";
 import { sizeType } from "@themes/fonts";
 import { formatCurrency } from "react-native-format-currency";
