@@ -1,14 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import Container from "@containers/Container";
+import PageHeader from "@components/shared/PageHeader";
+import { penjualanHeader } from "@utils/constant/pageHeader";
 
 const TambahPenjualan = () => {
   return (
-    <View>
-      <Text>TambahPenjualan</Text>
-    </View>
+    <Container type="app">
+      <PageHeader headerData={penjualanHeader} />
+    </Container>
   );
 };
 
 export default TambahPenjualan;
-
-const styles = StyleSheet.create({});

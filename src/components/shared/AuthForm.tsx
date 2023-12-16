@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import SubmitButton from "./SubmitButton";
 import AuthFormFooter from "@components/intermediate/AuthFormFooter";
 import BackButton from "./BackButton";
+import useAuth from "@hooks/useAuth";
 
 type Props = {
   formData: AuthFormType;
@@ -16,13 +17,19 @@ type Props = {
 };
 
 const AuthForm = ({ formData, handleForm, withBack = false }: Props) => {
+  const { login } = useAuth();
+
   return (
     <View style={[styles.container, { width: formData.inputs.length > 1 ? "70%" : "50%" }]}>
       {withBack && <BackButton left={32} top={32} />}
       <AuthFormHeader title={formData.title} subTitle={formData.subTitle} />
       <FormInputList formInputs={formData.inputs} control={handleForm.control} />
-      <SubmitButton label={formData.submitButton.label} buttonType={formData.submitButton.btnType} style={styles.button} />
-
+      <SubmitButton
+        label={formData.submitButton.label}
+        buttonType={formData.submitButton.btnType}
+        style={styles.button}
+        onPress={formData.title === "Masuk" ? handleForm.handleSubmit((data) => login(data.email, data.password)) : null}
+      />
       {formData.title === "Masuk" && <AuthFormFooter />}
     </View>
   );

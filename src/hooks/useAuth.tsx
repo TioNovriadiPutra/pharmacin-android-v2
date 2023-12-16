@@ -1,20 +1,24 @@
 import axios from "axios";
 import ENDPOINT from "@utils/config/Endpoint";
-import { LoginInputType } from "@utils/types/UserInputType";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { authTokenState, clinicIdState, userIdState } from "@store/atom/authState";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
 
 const useAuth = () => {
-  const [authToken, setAuthToken] = useRecoilState(authTokenState);
-  const [userId, setUserId] = useRecoilState(userIdState);
-  const [clinicId, setClinicId] = useRecoilState(clinicIdState);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const login = async (data: LoginInputType) => {
+  const setAuthToken = useSetRecoilState(authTokenState);
+  const setUserId = useSetRecoilState(userIdState);
+  const setClinicId = useSetRecoilState(clinicIdState);
+
+  const login = async (email: string, password: string) => {
+    setIsLoading(true);
+
     await axios
       .post(ENDPOINT.login, {
-        email: data.email,
-        password: data.password,
+        email,
+        password,
       })
       .then((response) => {
         const { token, userId, clinicId } = response.data;
@@ -26,8 +30,36 @@ const useAuth = () => {
         AsyncStorage.setItem("@clinicId", JSON.stringify(clinicId));
       })
       .catch((error) => {
-        console.error("Error : " + error.response.data);
+        console.log(error.response.data.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
+  };
+
+  const isLoggedIn = async () => {
+    setIsLoading(true);
+
+    const authToken = await AsyncStorage.getItem("@authToken");
+    const userId = await AsyncStorage.getItem("@userId");
+    const clinicId = await AsyncStorage.getItem("@clinicId");
+
+    if (authToken && userId && clinicId) {
+      setAuthToken(authToken);
+      setUserId(JSON.parse(userId));
+      setClinicId(JSON.parse(clinicId));
+    }
+
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    isLoggedIn();
+  }, []);
+
+  return {
+    isLoading,
+    login,
   };
 };
 

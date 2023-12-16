@@ -9,11 +9,12 @@ type Props = {
   style?: ViewStyle;
   buttonType?: keyof typeof ButtonType;
   labelSize?: keyof typeof sizeType;
+  onPress?: any;
 };
 
-const SubmitButton = ({ label, style, buttonType = "DEFAULT", labelSize = "H4" }: Props) => {
+const SubmitButton = ({ label, style, buttonType = "DEFAULT", labelSize = "H4", onPress }: Props) => {
   return (
-    <TouchableOpacity style={[styles.container, style, { backgroundColor: ButtonType[buttonType] }]}>
+    <TouchableOpacity style={[styles.container, style, { backgroundColor: ButtonType[buttonType] }]} onPress={onPress}>
       <Text style={[sizeType[labelSize], { color: buttonType === "DEFAULT" ? colors.DefaultText : colors.White }]}>{label}</Text>
     </TouchableOpacity>
   );

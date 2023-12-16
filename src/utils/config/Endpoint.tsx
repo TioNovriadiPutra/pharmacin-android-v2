@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3333/api";
+const BASE_URL = "http://10.0.2.2:3333";
 
 const AUTH_PREFIX = BASE_URL + "/auth";
 

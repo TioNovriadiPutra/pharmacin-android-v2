@@ -1,5 +1,5 @@
 import React from "react";
-import { Drawer, Stack } from "@utils/constant/navigation";
+import { Drawer, Stack, StackBukuBesar, StackManajemen, StackObat, StackPabrikan, StackPembelian, StackPenjualan, StackStock } from "@utils/constant/navigation";
 import Dashboard from "@pages/app/Dashboard";
 import CustomDrawer from "@components/custom/CustomDrawer";
 import Notifikasi from "@pages/app/Notifikasi";
@@ -29,6 +29,7 @@ const AppStack = () => {
         drawerStyle: {
           width: 68,
         },
+        unmountOnBlur: true,
       }}
       drawerContent={(props) => <CustomDrawer {...props} />}
     >
@@ -47,66 +48,66 @@ const AppStack = () => {
 
 const PenjualanStack = () => {
   return (
-    <Stack.Navigator initialRouteName="TambahPenjualan">
-      <Stack.Screen name="TambahPenjualan" component={TambahPenjualan} options={{ headerShown: false }} />
-      <Stack.Screen name="KelolaPenjualan" component={KelolaPenjualan} options={{ headerShown: false }} />
-    </Stack.Navigator>
+    <StackPenjualan.Navigator initialRouteName="TambahPenjualan">
+      <StackPenjualan.Screen name="TambahPenjualan" component={TambahPenjualan} options={{ headerShown: false }} />
+      <StackPenjualan.Screen name="KelolaPenjualan" component={KelolaPenjualan} options={{ headerShown: false }} />
+    </StackPenjualan.Navigator>
   );
 };
 
 const StockStack = () => {
   return (
-    <Stack.Navigator initialRouteName="StockStock">
-      <Stack.Screen name="StockStock" component={StockStock} options={{ headerShown: false }} />
-      <Stack.Screen name="OpnameStock" component={OpnameStock} options={{ headerShown: false }} />
-      <Stack.Screen name="RiwayatOpnameStock" component={RiwayatOpnameStock} options={{ headerShown: false }} />
-    </Stack.Navigator>
+    <StackStock.Navigator initialRouteName="StockStock">
+      <StackStock.Screen name="StockStock" component={StockStock} options={{ headerShown: false }} />
+      <StackStock.Screen name="OpnameStock" component={OpnameStock} options={{ headerShown: false }} />
+      <StackStock.Screen name="RiwayatOpnameStock" component={RiwayatOpnameStock} options={{ headerShown: false }} />
+    </StackStock.Navigator>
   );
 };
 
 const ObatStack = () => {
   return (
-    <Stack.Navigator initialRouteName="KategoriObat">
-      <Stack.Screen name="KategoriObat" component={KategoriObat} options={{ headerShown: false }} />
-      <Stack.Screen name="KelolaObat" component={KelolaObat} options={{ headerShown: false }} />
-    </Stack.Navigator>
+    <StackObat.Navigator initialRouteName="KategoriObat">
+      <StackObat.Screen name="KategoriObat" component={KategoriObat} options={{ headerShown: false }} />
+      <StackObat.Screen name="KelolaObat" component={KelolaObat} options={{ headerShown: false }} />
+    </StackObat.Navigator>
   );
 };
 
 const PabrikanStack = () => {
   return (
-    <Stack.Navigator initialRouteName="PabrikanPabrikan">
-      <Stack.Screen name="PabrikanPabrikan" component={Pabrikan} options={{ headerShown: false }} />
-      <Stack.Screen name="DetailPabrikan" component={DetailPabrikan} options={{ headerShown: false }} />
-    </Stack.Navigator>
+    <StackPabrikan.Navigator initialRouteName="PabrikanPabrikan">
+      <StackPabrikan.Screen name="PabrikanPabrikan" component={Pabrikan} options={{ headerShown: false }} />
+      <StackPabrikan.Screen name="DetailPabrikan" component={DetailPabrikan} options={{ headerShown: false }} />
+    </StackPabrikan.Navigator>
   );
 };
 
 const PembelianStack = () => {
   return (
-    <Stack.Navigator initialRouteName="TambahPembelian">
-      <Stack.Screen name="TambahPembelian" component={TambahPembelian} options={{ headerShown: false }} />
-      <Stack.Screen name="KelolaPembelian" component={KelolaPembelian} options={{ headerShown: false }} />
-    </Stack.Navigator>
+    <StackPembelian.Navigator initialRouteName="TambahPembelian">
+      <StackPembelian.Screen name="TambahPembelian" component={TambahPembelian} options={{ headerShown: false }} />
+      <StackPembelian.Screen name="KelolaPembelian" component={KelolaPembelian} options={{ headerShown: false }} />
+    </StackPembelian.Navigator>
   );
 };
 
 const BukuBesarStack = () => {
   return (
-    <Stack.Navigator initialRouteName="PenjualanBukuBesar">
-      <Stack.Screen name="PenjualanBukuBesar" component={PenjualanBukuBesar} options={{ headerShown: false }} />
-      <Stack.Screen name="PembelianBukuBesar" component={PembelianBukuBesar} options={{ headerShown: false }} />
-    </Stack.Navigator>
+    <StackBukuBesar.Navigator initialRouteName="PenjualanBukuBesar">
+      <StackBukuBesar.Screen name="PenjualanBukuBesar" component={PenjualanBukuBesar} options={{ headerShown: false }} />
+      <StackBukuBesar.Screen name="PembelianBukuBesar" component={PembelianBukuBesar} options={{ headerShown: false }} />
+    </StackBukuBesar.Navigator>
   );
 };
 
 const ManajemenStack = () => {
   return (
-    <Stack.Navigator initialRouteName="KlinikManajemen">
-      <Stack.Screen name="KlinikManajemen" component={KlinikManajemen} options={{ headerShown: false }} />
-      <Stack.Screen name="KaryawanManajemen" component={KaryawanManajemen} options={{ headerShown: false }} />
-      <Stack.Screen name="RiwayatKasirManajemen" component={RiwayatKasirManajemen} options={{ headerShown: false }} />
-    </Stack.Navigator>
+    <StackManajemen.Navigator initialRouteName="KlinikManajemen">
+      <StackManajemen.Screen name="KlinikManajemen" component={KlinikManajemen} options={{ headerShown: false }} />
+      <StackManajemen.Screen name="KaryawanManajemen" component={KaryawanManajemen} options={{ headerShown: false }} />
+      <StackManajemen.Screen name="RiwayatKasirManajemen" component={RiwayatKasirManajemen} options={{ headerShown: false }} />
+    </StackManajemen.Navigator>
   );
 };
 

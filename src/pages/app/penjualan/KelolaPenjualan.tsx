@@ -1,14 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import Container from "@containers/Container";
+import PageHeader from "@components/shared/PageHeader";
+import { kelolaPenjualanHeader } from "@utils/constant/pageHeader";
 
 const KelolaPenjualan = () => {
   return (
-    <View>
-      <Text>KelolaPenjualan</Text>
-    </View>
+    <Container type="app">
+      <PageHeader headerData={kelolaPenjualanHeader} />
+    </Container>
   );
 };
 
 export default KelolaPenjualan;
-
-const styles = StyleSheet.create({});

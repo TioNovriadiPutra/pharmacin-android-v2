@@ -5,9 +5,10 @@ import { sizeType } from "@themes/fonts";
 
 type Props = {
   headerData: string[];
+  withAction?: boolean;
 };
 
-const DashboardTableHeader = ({ headerData }: Props) => {
+const TableHeader = ({ headerData, withAction = false }: Props) => {
   return (
     <View style={styles.container}>
       {headerData.map((item, index) => (
@@ -15,20 +16,22 @@ const DashboardTableHeader = ({ headerData }: Props) => {
           {item}
         </Text>
       ))}
+
+      {withAction && <Text style={[styles.label, sizeType.H3]}>Tindakan</Text>}
     </View>
   );
 };
 
-export default DashboardTableHeader;
+export default TableHeader;
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: colors.White,
     flexDirection: "row",
-    paddingHorizontal: 27,
+    alignItems: "center",
+    paddingHorizontal: 22,
     paddingVertical: 17,
-    backgroundColor: colors.PageDefault,
     borderRadius: 10,
-    marginTop: 21,
   },
   label: {
     flex: 1,

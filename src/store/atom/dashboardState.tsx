@@ -1,22 +1,5 @@
-import { DashboardStatType } from "@utils/types/DashboardStatType";
-import { CustomHeader } from "@utils/types/HeaderType";
+import { DashboardStatType, DashboardTableDataType } from "@utils/types/DashboardType";
 import { atom } from "recoil";
-
-const dashboardHeaderState = atom<CustomHeader>({
-  key: "dashboardHeaderState",
-  default: {
-    title: "Dashboard",
-    function: [
-      {
-        type: "button",
-        functionItem: {
-          label: "Buka Kasir",
-          btnType: "SUCCESS",
-        },
-      },
-    ],
-  },
-});
 
 const dashboardStatState = atom<DashboardStatType[]>({
   key: "dashboardStatState",
@@ -48,4 +31,39 @@ const dashboardStatState = atom<DashboardStatType[]>({
   ],
 });
 
-export { dashboardHeaderState, dashboardStatState };
+const dashboardTableDataState = atom<DashboardTableDataType[]>({
+  key: "dashboardTableDataState",
+  default: [
+    {
+      title: "Penjualan Terakhir",
+      destination: {
+        parent: "Penjualan",
+        child: "KelolaPenjualan",
+      },
+      headers: ["No Invoice", "Total"],
+    },
+    {
+      title: "Riwayat Kasir",
+      destination: {
+        parent: "Manajemen",
+        child: "RiwayatKasirManajemen",
+      },
+      headers: ["Tanggal", "Buka", "Tutup"],
+    },
+    {
+      title: "Pembelian Terakhir Terakhir",
+      destination: {
+        parent: "Pembelian",
+        child: "KelolaPembelian",
+      },
+      headers: ["No Invoice", "Total"],
+    },
+  ],
+});
+
+const cashierStatusState = atom<boolean>({
+  key: "cashierStatusState",
+  default: false,
+});
+
+export { dashboardStatState, dashboardTableDataState, cashierStatusState };

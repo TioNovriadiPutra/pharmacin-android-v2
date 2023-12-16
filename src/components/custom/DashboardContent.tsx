@@ -1,14 +1,18 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
 import DashboardTable from "@components/intermediate/DashboardTable";
+import { useRecoilValue } from "recoil";
+import { dashboardTableDataState } from "@store/atom/dashboardState";
 
 const DashboardContent = () => {
+  const dashboardTableData = useRecoilValue(dashboardTableDataState);
+
   return (
     <View style={[styles.container, styles.mainContainer]}>
-      <DashboardTable title="Penjualan Terakhir" />
+      <DashboardTable tableData={dashboardTableData[0]} />
       <View style={styles.container}>
-        <DashboardTable title="Riwayat Kasir" />
-        <DashboardTable title="Pembelian Terakhir" />
+        <DashboardTable tableData={dashboardTableData[1]} />
+        <DashboardTable tableData={dashboardTableData[2]} />
       </View>
     </View>
   );

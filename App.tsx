@@ -5,6 +5,7 @@ import { RecoilRoot } from "recoil";
 import AppNav from "@navigation/AppNav";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import RecoilNexus from "recoil-nexus";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -27,6 +28,7 @@ const App = () => {
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
       <RecoilRoot>
+        <RecoilNexus />
         <AppNav />
       </RecoilRoot>
     </View>

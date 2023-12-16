@@ -1,16 +1,16 @@
 import { atom } from "recoil";
 
-const authTokenState = atom({
+const authTokenState = atom<string | null>({
   key: "authTokenState",
   default: null,
 });
 
-const userIdState = atom({
+const userIdState = atom<number | null>({
   key: "userIdState",
   default: null,
 });
 
-const clinicIdState = atom({
+const clinicIdState = atom<number | null>({
   key: "clinicIdState",
   default: null,
 });

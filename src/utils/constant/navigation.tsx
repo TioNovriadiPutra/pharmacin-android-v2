@@ -1,7 +1,25 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  AppBukuBesarStackParamType,
+  AppManajemenStackParamType,
+  AppObatStackParamType,
+  AppPabrikanParamType,
+  AppPembelianStackParamType,
+  AppPenjualanStackParamType,
+  AppRootDrawerParamType,
+  AppStockStackParamType,
+  AuthRootStackParamType,
+} from "@utils/types/RootStackParamType";
 
-const Stack = createNativeStackNavigator();
-const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator<AuthRootStackParamType>();
+const StackPenjualan = createNativeStackNavigator<AppPenjualanStackParamType>();
+const StackStock = createNativeStackNavigator<AppStockStackParamType>();
+const StackObat = createNativeStackNavigator<AppObatStackParamType>();
+const StackPabrikan = createNativeStackNavigator<AppPabrikanParamType>();
+const StackPembelian = createNativeStackNavigator<AppPembelianStackParamType>();
+const StackBukuBesar = createNativeStackNavigator<AppBukuBesarStackParamType>();
+const StackManajemen = createNativeStackNavigator<AppManajemenStackParamType>();
+const Drawer = createDrawerNavigator<AppRootDrawerParamType>();
 
-export { Stack, Drawer };
+export { Stack, Drawer, StackPenjualan, StackStock, StackObat, StackPabrikan, StackPembelian, StackBukuBesar, StackManajemen };

@@ -1,11 +1,14 @@
 import { CustomDropdownInput, CustomTextInput } from "./InputType";
 import { CustomButtonType } from "./ButtonType";
 
-interface AuthFormType {
+interface FormType {
   title: string;
-  subTitle: string;
   inputs: (CustomTextInput | CustomDropdownInput)[][];
   submitButton: CustomButtonType;
 }
 
-export { AuthFormType };
+interface AuthFormType extends FormType {
+  subTitle: string;
+}
+
+export { FormType, AuthFormType };

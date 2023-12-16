@@ -1,4 +1,4 @@
-import { StyleSheet, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Image, TouchableOpacity, ViewStyle } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
@@ -7,9 +7,11 @@ type Props = {
   left?: number;
   right?: number;
   bottom?: number;
+  style?: ViewStyle;
+  onPress?: () => void;
 };
 
-const BackButton = ({ top, left, right, bottom }: Props) => {
+const BackButton = ({ top, left, right, bottom, onPress, style }: Props) => {
   const nav = useNavigation();
 
   const onBack = () => {
@@ -17,7 +19,7 @@ const BackButton = ({ top, left, right, bottom }: Props) => {
   };
 
   return (
-    <TouchableOpacity style={[styles.container, { top, left, right, bottom }]} onPress={onBack}>
+    <TouchableOpacity style={[styles.container, { top, left, right, bottom }, style]} onPress={onPress ? onPress : onBack}>
       <Image source={require("@assets/images/back.png")} />
     </TouchableOpacity>
   );

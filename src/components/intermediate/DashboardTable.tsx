@@ -3,21 +3,22 @@ import React from "react";
 import { colors } from "@themes/colors";
 import { fonts, sizeType } from "@themes/fonts";
 import DashboardTableHeader from "./DashboardTableHeader";
+import { DashboardTableDataType } from "@utils/types/DashboardType";
 
 type Props = {
-  title: string;
+  tableData: DashboardTableDataType;
 };
 
-const DashboardTable = ({ title }: Props) => {
+const DashboardTable = ({ tableData }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}>{tableData.title}</Text>
         <TouchableOpacity>
           <Text style={[styles.btn, sizeType.Button]}>Lihat Semua {`>>`}</Text>
         </TouchableOpacity>
       </View>
-      <DashboardTableHeader />
+      <DashboardTableHeader headerData={tableData.headers} />
     </View>
   );
 };
