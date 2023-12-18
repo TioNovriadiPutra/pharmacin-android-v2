@@ -7,7 +7,11 @@ import { drawerStatusState } from "@store/atom/drawerState";
 import { AnimatedTouchableOpacity } from "@utils/constant/animation";
 import { interpolate, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 
-const DrawerTransactionButton = () => {
+type Props = {
+  navigation: any;
+};
+
+const DrawerTransactionButton = ({ navigation }: Props) => {
   const drawerStatus = useRecoilValue(drawerStatusState);
 
   const buttonAnim = useSharedValue(0);
@@ -22,6 +26,12 @@ const DrawerTransactionButton = () => {
     };
   });
 
+  const onPress = () => {
+    navigation.navigate("Penjualan", {
+      screen: "TambahPenjualan",
+    });
+  };
+
   useEffect(() => {
     if (drawerStatus) {
       buttonAnim.value = withTiming(1, { duration: 500 });
@@ -31,7 +41,7 @@ const DrawerTransactionButton = () => {
   }, [drawerStatus]);
 
   return (
-    <AnimatedTouchableOpacity style={[styles.container, buttonAnimatedStyle]}>
+    <AnimatedTouchableOpacity style={[styles.container, buttonAnimatedStyle]} onPress={onPress}>
       <Image source={require("@assets/images/plus.png")} />
 
       <Text numberOfLines={1} style={[styles.label, sizeType.H2]}>

@@ -56,7 +56,7 @@ const CustomDrawer = ({ navigation }: Props) => {
         <DrawerNotifItem navigation={navigation} />
         <Bar />
         <DrawerItemList navigation={navigation} onCloseDrawer={onCloseDrawer} onOpenDrawer={onOpenDrawer} />
-        <DrawerTransactionButton />
+        <DrawerTransactionButton navigation={navigation} />
         <Bar />
       </Animated.View>
     </View>

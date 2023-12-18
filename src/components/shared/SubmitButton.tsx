@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, ViewStyle } from "react-native";
+import { StyleProp, StyleSheet, Text, TouchableOpacity, ViewStyle } from "react-native";
 import React from "react";
 import ButtonType from "@utils/enums/buttonEnums";
 import { colors } from "@themes/colors";
@@ -6,7 +6,7 @@ import { sizeType } from "@themes/fonts";
 
 type Props = {
   label: string;
-  style?: ViewStyle;
+  style?: ViewStyle | Array<StyleProp<ViewStyle>>;
   buttonType?: keyof typeof ButtonType;
   labelSize?: keyof typeof sizeType;
   onPress?: any;

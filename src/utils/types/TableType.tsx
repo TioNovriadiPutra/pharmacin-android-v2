@@ -1,15 +1,44 @@
-import { AppPabrikanParamType } from "./RootStackParamType";
+import { CustomDetailHeader } from "./HeaderType";
+import { AppObatStackParamType, AppPabrikanParamType, AppStockStackParamType } from "./RootStackParamType";
 
 interface TableType {
   headers: string[];
   data: { id: number; item: TableDataType[] }[];
-  tableAction?: ["edit", "delete"];
-  detailDest?: keyof AppPabrikanParamType;
+  tableAction?: Array<"edit" | "delete" | "invoice" | "opname">;
+  detailDest?: keyof AppPabrikanParamType | keyof AppStockStackParamType | keyof AppObatStackParamType;
 }
 
 interface TableDataType {
   label: string | number;
-  type: "text" | "currency" | "quantity";
+  status?: boolean;
+  type: "text" | "currency" | "quantity" | "opnameDate";
 }
 
-export { TableType, TableDataType };
+interface SwitchTableType {
+  screenData: TableType[];
+}
+
+interface DetailDataType {
+  pageHeader: CustomDetailHeader;
+  detailData: TableType[];
+}
+
+interface MainDetailType {
+  statData: MainDetailStatType[];
+  detailData: MainDetailDataType[];
+}
+
+interface MainDetailDataType {
+  label: string;
+  value?: string | number;
+  type: "text" | "currency";
+}
+
+interface MainDetailStatType {
+  stat: number;
+  label: string;
+  color: string;
+  textColor: string;
+}
+
+export { TableType, TableDataType, DetailDataType, MainDetailType, MainDetailDataType, MainDetailStatType, SwitchTableType };

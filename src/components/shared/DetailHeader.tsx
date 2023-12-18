@@ -6,15 +6,17 @@ import { sizeType } from "@themes/fonts";
 
 type Props = {
   itemName: string;
+  type: "detail" | "opname";
+  onPress?: any;
 };
 
-const DetailHeader = ({ itemName }: Props) => {
+const DetailHeader = ({ itemName, type, onPress }: Props) => {
   return (
     <View style={styles.container}>
       <BackButton style={styles.back} />
       <Text style={[styles.title, sizeType.H3]}>{itemName}</Text>
-      <TouchableOpacity>
-        <Image source={require("@assets/images/detail.png")} />
+      <TouchableOpacity onPress={onPress}>
+        <Image source={type === "detail" ? require("@assets/images/detail.png") : require("@assets/images/opnameDetail.png")} />
       </TouchableOpacity>
     </View>
   );

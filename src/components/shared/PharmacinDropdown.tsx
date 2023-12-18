@@ -5,6 +5,7 @@ import { useController, useForm } from "react-hook-form";
 import { sizeType } from "@themes/fonts";
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { CustomDropdownInput, DropdownItem } from "@utils/types/InputType";
+import DropdownMenu from "@components/intermediate/DropdownMenu";
 
 type Props = {
   inputData: CustomDropdownInput;
@@ -13,7 +14,6 @@ type Props = {
 
 const PharmacinDropdown = ({ inputData, control }: Props) => {
   const [showDrop, setShowDrop] = useState(false);
-  const [dropLayout, setDropLayout] = useState(0);
 
   const dropdownAnim = useSharedValue(0);
 
@@ -22,11 +22,6 @@ const PharmacinDropdown = ({ inputData, control }: Props) => {
     defaultValue: inputData.defaultValue,
     control,
   });
-
-  const onDropdownLayout = (event: any) => {
-    const { height } = event.nativeEvent.layout;
-    setDropLayout(height);
-  };
 
   const onDropdown = () => {
     if (showDrop) {
@@ -43,14 +38,6 @@ const PharmacinDropdown = ({ inputData, control }: Props) => {
     setShowDrop(false);
   };
 
-  const dropdownAnimatedStyle = useAnimatedStyle(() => {
-    const height = interpolate(dropdownAnim.value, [0, 1], [0, dropLayout]);
-
-    return {
-      height,
-    };
-  });
-
   const dropdownIconAnimatedStyle = useAnimatedStyle(() => {
     const rotate = interpolate(dropdownAnim.value, [0, 1], [0, 180]);
 
@@ -60,22 +47,18 @@ const PharmacinDropdown = ({ inputData, control }: Props) => {
   });
 
   return (
-    <View>
+    <View style={styles.mainContainer}>
+      {inputData.placeholderPosition === "out" && <Text style={[styles.placeholder, sizeType.H3]}>{inputData.placeholder}</Text>}
+
       <TouchableOpacity style={styles.container} onPress={onDropdown}>
-        <Text style={[styles.input, sizeType.H4, { color: field.value === null ? colors.Placeholder : colors.Black }]}>{field.value === null ? inputData.placeholder : field.value.label}</Text>
+        <Text style={[styles.input, sizeType.H4, { color: field.value === null ? colors.Placeholder : colors.Black }]}>
+          {field.value === null ? (inputData.placeholderPosition === "out" ? "" : inputData.placeholder) : field.value.label}
+        </Text>
 
         <Animated.Image source={require("@assets/images/dropdown.png")} style={dropdownIconAnimatedStyle} />
       </TouchableOpacity>
 
-      <Animated.View style={[styles.dropdown, dropdownAnimatedStyle]}>
-        <View style={styles.dropdownLayout} onLayout={onDropdownLayout}>
-          {inputData.items.map((item, index) => (
-            <TouchableOpacity key={index.toString()} style={[styles.dropdownItem, { borderBottomWidth: index < inputData.items.length - 1 ? 1 : 0 }]} onPress={() => chooseItem(item)}>
-              <Text style={styles.dropdownLabel}>{item.label}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </Animated.View>
+      <DropdownMenu dropdownItem={inputData.items} anim={dropdownAnim} chooseItem={chooseItem} />
     </View>
   );
 };
@@ -83,6 +66,9 @@ const PharmacinDropdown = ({ inputData, control }: Props) => {
 export default PharmacinDropdown;
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    gap: 6,
+  },
   container: {
     borderWidth: 1,
     borderColor: colors.Border,
@@ -96,31 +82,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
   },
-  dropdown: {
-    backgroundColor: colors.White,
-    elevation: 5,
-    borderRadius: 8,
-    position: "absolute",
-    zIndex: 999999,
-    left: 0,
-    right: 0,
-    top: "120%",
-    overflow: "hidden",
-  },
-  dropdownLayout: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    paddingHorizontal: 10,
-    borderRadius: 8,
-  },
-  dropdownItem: {
-    paddingVertical: 17,
-    paddingHorizontal: 12,
-    borderBottomColor: colors.Bar,
-  },
-  dropdownLabel: {
-    color: colors.Black,
+  placeholder: {
+    color: colors.Placeholder,
   },
 });

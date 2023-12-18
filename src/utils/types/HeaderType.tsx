@@ -1,5 +1,5 @@
 import { CustomButtonType } from "./ButtonType";
-import { CustomTextInput } from "./InputType";
+import { CustomSwitchInput, CustomTextInput } from "./InputType";
 
 interface CustomHeader {
   title: string;
@@ -7,9 +7,14 @@ interface CustomHeader {
   function: CustomHeaderFunction[];
 }
 
-interface CustomHeaderFunction {
-  type: "button" | "search";
-  functionItem: CustomButtonType | CustomTextInput;
+interface CustomDetailHeader extends CustomHeader {
+  type: "detail" | "opname";
+  onPress?: any;
 }
 
-export { CustomHeader, CustomHeaderFunction };
+interface CustomHeaderFunction {
+  type: "button" | "search" | "switch";
+  functionItem: CustomButtonType | CustomTextInput | CustomSwitchInput;
+}
+
+export { CustomHeader, CustomHeaderFunction, CustomDetailHeader };

@@ -1,4 +1,3 @@
-import { StyleSheet } from "react-native";
 import React from "react";
 import Container from "@containers/Container";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -28,5 +27,3 @@ const Pabrikan = () => {
 };
 
 export default Pabrikan;
-
-const styles = StyleSheet.create({});

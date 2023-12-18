@@ -1,11 +1,12 @@
 interface CustomInput {
   name: string;
-  defaultValue?: string | null;
-  type: "text" | "password" | "dropdown" | "phone";
+  defaultValue?: string | number | null;
+  type: "text" | "password" | "dropdown" | "phone" | "static" | "currency" | "currencyStatic";
 }
 
 interface CustomTextInput extends CustomInput {
   placeholder: string;
+  placeholderPosition?: "in" | "out";
 }
 
 interface CustomDropdownInput extends CustomTextInput {
@@ -14,7 +15,15 @@ interface CustomDropdownInput extends CustomTextInput {
 
 interface DropdownItem {
   label: string;
-  value: string;
+  value: string | number;
 }
 
-export { CustomInput, CustomTextInput, CustomDropdownInput, DropdownItem };
+interface CustomSwitchInput {
+  items: SwitchItem[];
+}
+
+interface SwitchItem {
+  label: string;
+}
+
+export { CustomInput, CustomTextInput, CustomDropdownInput, DropdownItem, CustomSwitchInput };

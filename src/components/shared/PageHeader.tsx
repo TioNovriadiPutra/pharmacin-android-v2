@@ -5,14 +5,17 @@ import { colors } from "@themes/colors";
 import { sizeType } from "@themes/fonts";
 import SubmitButton from "./SubmitButton";
 import { CustomButtonType } from "@utils/types/ButtonType";
-import { CustomTextInput } from "@utils/types/InputType";
+import { CustomSwitchInput, CustomTextInput } from "@utils/types/InputType";
 import HeaderSearchInput from "@components/intermediate/HeaderSearchInput";
+import PharmacinSwitch from "./PharmacinSwitch";
 
 type Props = {
   headerData: CustomHeader;
+  activeScreen?: number;
+  setActiveScreen?: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const PageHeader = ({ headerData }: Props) => {
+const PageHeader = ({ headerData, activeScreen, setActiveScreen }: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
@@ -29,6 +32,10 @@ const PageHeader = ({ headerData }: Props) => {
             const typeItem: CustomTextInput = item.functionItem as CustomTextInput;
 
             return <HeaderSearchInput key={index.toString()} inputData={typeItem} />;
+          } else if (item.type === "switch") {
+            const typeItem: CustomSwitchInput = item.functionItem as CustomSwitchInput;
+
+            return <PharmacinSwitch key={index.toString()} functionData={typeItem} activeScreen={activeScreen} setActiveScreen={setActiveScreen} btnStyle={styles.switch} />;
           }
         })}
       </View>
@@ -63,5 +70,8 @@ const styles = StyleSheet.create({
   functionContainer: {
     flexDirection: "row",
     gap: 14,
+  },
+  switch: {
+    paddingHorizontal: 42,
   },
 });

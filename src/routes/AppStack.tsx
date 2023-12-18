@@ -19,6 +19,8 @@ import PembelianBukuBesar from "@pages/app/bukuBesar/PembelianBukuBesar";
 import KlinikManajemen from "@pages/app/manajemen/KlinikManajemen";
 import KaryawanManajemen from "@pages/app/manajemen/KaryawanManajemen";
 import RiwayatKasirManajemen from "@pages/app/manajemen/RiwayatKasirManajemen";
+import DetailOpnameStock from "@pages/app/stock/DetailOpnameStock";
+import DetailObat from "@pages/app/obat/DetailObat";
 
 const AppStack = () => {
   return (
@@ -61,6 +63,7 @@ const StockStack = () => {
       <StackStock.Screen name="StockStock" component={StockStock} options={{ headerShown: false }} />
       <StackStock.Screen name="OpnameStock" component={OpnameStock} options={{ headerShown: false }} />
       <StackStock.Screen name="RiwayatOpnameStock" component={RiwayatOpnameStock} options={{ headerShown: false }} />
+      <StackStock.Screen name="DetailOpnameStock" component={DetailOpnameStock} options={{ headerShown: false }} />
     </StackStock.Navigator>
   );
 };
@@ -70,6 +73,7 @@ const ObatStack = () => {
     <StackObat.Navigator initialRouteName="KategoriObat">
       <StackObat.Screen name="KategoriObat" component={KategoriObat} options={{ headerShown: false }} />
       <StackObat.Screen name="KelolaObat" component={KelolaObat} options={{ headerShown: false }} />
+      <StackObat.Screen name="DetailObat" component={DetailObat} options={{ headerShown: false }} />
     </StackObat.Navigator>
   );
 };

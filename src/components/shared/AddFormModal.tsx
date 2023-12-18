@@ -2,8 +2,7 @@ import { Modal, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-n
 import React, { useEffect } from "react";
 import { customStyles } from "@themes/styles";
 import { SetterOrUpdater } from "recoil";
-import { colors } from "@themes/colors";
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import Animated, { useAnimatedStyle, useSharedValue } from "react-native-reanimated";
 import BackButton from "./BackButton";
 import { FormType } from "@utils/types/FormType";
 import { sizeType } from "@themes/fonts";
@@ -11,15 +10,15 @@ import FormInputList from "@components/intermediate/FormInputList";
 import { useForm } from "react-hook-form";
 import Bar from "./Bar";
 import SubmitButton from "./SubmitButton";
+import { onCloseModal, onOpenModal } from "@utils/helper/modalAnimHandler";
 
 type Props = {
   visible: boolean;
   setShowModal: SetterOrUpdater<boolean>;
-  position?: "left" | "right";
   formData: FormType;
 };
 
-const AddFormModal = ({ visible, setShowModal, position = "left", formData }: Props) => {
+const AddFormModal = ({ visible, setShowModal, formData }: Props) => {
   const formAnim = useSharedValue(0);
 
   const { control, handleSubmit } = useForm();
@@ -30,34 +29,27 @@ const AddFormModal = ({ visible, setShowModal, position = "left", formData }: Pr
     };
   });
 
-  const onCloseModal = () => {
-    formAnim.value = withTiming(0, { duration: 500 });
-    setTimeout(() => {
-      setShowModal(false);
-    }, 450);
-  };
-
   useEffect(() => {
     if (visible) {
-      formAnim.value = withTiming(542, { duration: 500 });
+      onOpenModal(formAnim);
     } else {
-      onCloseModal();
+      onCloseModal(formAnim, setShowModal);
     }
   }, [visible]);
 
   return (
     <Modal visible={visible} transparent statusBarTranslucent>
-      <TouchableWithoutFeedback onPress={onCloseModal}>
+      <TouchableWithoutFeedback onPress={() => onCloseModal(formAnim, setShowModal)}>
         <View style={customStyles.backdrop}>
-          <Animated.View style={[styles.formContainer, position === "left" ? styles.formLeft : styles.formRight, formAnimatedStyle]}>
-            <BackButton left={46} top={34} onPress={onCloseModal} />
-            <Text numberOfLines={1} style={[styles.title, sizeType.H1]}>
+          <Animated.View style={[customStyles.modalContainer, styles.formContainer, formAnimatedStyle]}>
+            <BackButton left={46} top={34} onPress={() => onCloseModal(formAnim, setShowModal)} />
+            <Text numberOfLines={1} style={[customStyles.title, sizeType.H1]}>
               {formData.title}
             </Text>
-            <FormInputList formInputs={formData.inputs} control={control} />
-            <View style={styles.footer}>
+            <View style={styles.content}>
+              <FormInputList formInputs={formData.inputs} control={control} />
               <Bar />
-              <SubmitButton label={formData.submitButton.label} buttonType={formData.submitButton.btnType} />
+              {formData.submitButton && <SubmitButton label={formData.submitButton.label} buttonType={formData.submitButton.btnType} labelSize="H2" />}
             </View>
           </Animated.View>
         </View>
@@ -70,30 +62,11 @@ export default AddFormModal;
 
 const styles = StyleSheet.create({
   formContainer: {
-    backgroundColor: colors.White,
-    height: "100%",
-    position: "absolute",
-    paddingHorizontal: 46,
-    paddingTop: 36,
-    overflow: "hidden",
-    gap: 34,
-  },
-  formLeft: {
     left: 0,
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
   },
-  formRight: {
-    right: 0,
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
-  },
-  title: {
-    color: colors.Black,
-    textAlign: "center",
-  },
-  footer: {
+  content: {
     flex: 1,
-    justifyContent: "flex-end",
   },
 });

@@ -6,7 +6,7 @@ import TableContent from "@components/intermediate/TableContent";
 
 type Props = {
   tableData: TableType;
-  nav: any;
+  nav?: any;
 };
 
 const PageTable = ({ tableData, nav }: Props) => {

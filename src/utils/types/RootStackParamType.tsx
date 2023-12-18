@@ -24,11 +24,13 @@ type AppStockStackParamType = {
   StockStock: undefined;
   OpnameStock: undefined;
   RiwayatOpnameStock: undefined;
+  DetailOpnameStock: { itemId: number };
 };
 
 type AppObatStackParamType = {
   KategoriObat: undefined;
   KelolaObat: undefined;
+  DetailObat: { itemId: number };
 };
 
 type AppPabrikanParamType = {

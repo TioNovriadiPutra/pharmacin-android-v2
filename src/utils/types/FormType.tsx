@@ -4,11 +4,20 @@ import { CustomButtonType } from "./ButtonType";
 interface FormType {
   title: string;
   inputs: (CustomTextInput | CustomDropdownInput)[][];
-  submitButton: CustomButtonType;
+  submitButton?: CustomButtonType;
 }
 
 interface AuthFormType extends FormType {
   subTitle: string;
 }
 
-export { FormType, AuthFormType };
+interface TransactionFormType {
+  formData: FormType[];
+  shoppingCart: ShoppingCartType;
+}
+
+interface ShoppingCartType {
+  headers: string[];
+}
+
+export { FormType, AuthFormType, TransactionFormType, ShoppingCartType };

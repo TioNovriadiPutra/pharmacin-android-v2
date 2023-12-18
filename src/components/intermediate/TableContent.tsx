@@ -1,19 +1,23 @@
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { colors } from "@themes/colors";
 import { TableDataType } from "@utils/types/TableType";
-import { sizeType } from "@themes/fonts";
+import OpnameDateValid from "@components/custom/OpnameDateValid";
+import TableColumn from "./TableColumn";
+import TableColumnAction from "./TableColumnAction";
 
 type Props = {
   contentData: { id: number; item: TableDataType[] }[];
-  tableAction?: ["edit", "delete"];
+  tableAction?: Array<"edit" | "delete" | "invoice" | "opname">;
   detailDest?: string;
-  nav: any;
+  nav?: any;
 };
 
 const TableContent = ({ contentData, tableAction, detailDest, nav }: Props) => {
   const onDetailPress = (id: number) => {
-    nav.navigate(detailDest, { itemId: id });
+    if (nav) {
+      nav.navigate(detailDest, { itemId: id });
+    }
   };
 
   return (
@@ -26,21 +30,15 @@ const TableContent = ({ contentData, tableAction, detailDest, nav }: Props) => {
             style={[styles.rowChild, { borderBottomWidth: contentData ? (contentData.length === 1 || index < contentData.length - 1 ? 1 : 0) : 0 }]}
             onPress={() => onDetailPress(item.id)}
           >
-            {item.item.map((item, index) => (
-              <Text key={index.toString()} style={[styles.column, sizeType.BodyText]}>
-                {item.label}
-              </Text>
-            ))}
+            {item.item.map((item, index) => {
+              if (item.type === "opnameDate") {
+                return <OpnameDateValid key={index.toString()} status={item.status} label={item.label as string} />;
+              }
 
-            {tableAction && (
-              <View style={styles.actionContainer}>
-                {tableAction.map((item, index) => (
-                  <TouchableOpacity key={index.toString()}>
-                    <Image source={item === "edit" ? require("@assets/images/edit.png") : require("@assets/images/delete.png")} />
-                  </TouchableOpacity>
-                ))}
-              </View>
-            )}
+              return <TableColumn key={index.toString()} item={item} />;
+            })}
+
+            {tableAction && <TableColumnAction tableAction={tableAction} />}
           </TouchableOpacity>
         )}
       />
@@ -63,17 +61,5 @@ const styles = StyleSheet.create({
     paddingVertical: 18,
     paddingHorizontal: 12,
     borderBottomColor: colors.BorderTable,
-  },
-  column: {
-    flex: 1,
-    textAlign: "center",
-    color: colors.Black,
-  },
-  actionContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    flex: 1,
-    justifyContent: "center",
-    gap: 10,
   },
 });

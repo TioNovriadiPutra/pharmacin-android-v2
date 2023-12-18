@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import React from "react";
+import Container from "@containers/Container";
 
 const RiwayatOpnameStock = () => {
   return (
-    <View>
+    <Container type="app">
       <Text>RiwayatOpnameStock</Text>
-    </View>
+    </Container>
   );
 };
 

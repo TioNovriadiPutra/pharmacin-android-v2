@@ -1,20 +1,35 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
-import DetailSwitch from "@components/intermediate/DetailSwitch";
+import { CustomHeaderFunction } from "@utils/types/HeaderType";
+import { CustomSwitchInput, CustomTextInput } from "@utils/types/InputType";
 import HeaderSearchInput from "@components/intermediate/HeaderSearchInput";
-import { CustomTextInput } from "@utils/types/InputType";
+import PharmacinSwitch from "@components/shared/PharmacinSwitch";
 
 type Props = {
-  functionData: { label: string }[];
-  searchData: CustomTextInput;
+  functionData: CustomHeaderFunction[];
   activeScreen: number;
+  setActiveScreen: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const DetailFunction = ({ functionData, searchData, activeScreen }: Props) => {
+const DetailFunction = ({ functionData, activeScreen, setActiveScreen }: Props) => {
   return (
     <View style={styles.container}>
-      <DetailSwitch functionData={functionData} activeScreen={activeScreen} />
-      <HeaderSearchInput inputData={searchData} />
+      {functionData.map((item, index) => {
+        if (item.type === "switch") {
+          return (
+            <PharmacinSwitch
+              key={index.toString()}
+              functionData={item.functionItem as CustomSwitchInput}
+              activeScreen={activeScreen}
+              setActiveScreen={setActiveScreen}
+              style={styles.switch}
+              btnStyle={styles.switch}
+            />
+          );
+        } else if (item.type === "search") {
+          return <HeaderSearchInput key={index.toString()} inputData={item.functionItem as CustomTextInput} />;
+        }
+      })}
     </View>
   );
 };
@@ -25,5 +40,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     gap: 14,
+  },
+  switch: {
+    flex: 1,
   },
 });

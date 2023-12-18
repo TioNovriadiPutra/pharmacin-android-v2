@@ -6,6 +6,11 @@ const pabrikanShowAddModalState = atom<boolean>({
   default: false,
 });
 
+const pabrikanShowDetailModalState = atom<boolean>({
+  key: "pabrikanShowDetailModalState",
+  default: false,
+});
+
 const pabrikanTableDataState = atom<TableType>({
   key: "pabrikanTableDataState",
   default: {
@@ -64,4 +69,4 @@ const pabrikanDetailActiveScreenState = atom<number>({
   default: 0,
 });
 
-export { pabrikanTableDataState, pabrikanShowAddModalState, pabrikanDetailActiveScreenState };
+export { pabrikanTableDataState, pabrikanShowAddModalState, pabrikanDetailActiveScreenState, pabrikanShowDetailModalState };
