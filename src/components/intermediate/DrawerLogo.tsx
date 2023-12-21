@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 19,
     marginBottom: 46,
-    marginLeft: -3,
+    marginHorizontal: 15,
   },
   logoTitle: {
     color: colors.Primary,

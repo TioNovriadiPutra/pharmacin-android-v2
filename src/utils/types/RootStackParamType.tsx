@@ -8,6 +8,7 @@ type AppRootDrawerParamType = {
   Pembelian: undefined;
   BukuBesar: undefined;
   Manajemen: undefined;
+  Pengaturan: undefined;
 };
 
 type AuthRootStackParamType = {
@@ -54,6 +55,10 @@ type AppManajemenStackParamType = {
   RiwayatKasirManajemen: undefined;
 };
 
+type AppPengaturanStackParamType = {
+  PengaturanPengaturan: undefined;
+};
+
 export {
   AppRootDrawerParamType,
   AuthRootStackParamType,
@@ -64,4 +69,5 @@ export {
   AppPembelianStackParamType,
   AppBukuBesarStackParamType,
   AppManajemenStackParamType,
+  AppPengaturanStackParamType,
 };

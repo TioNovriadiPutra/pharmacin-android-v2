@@ -5,13 +5,16 @@ import { useController, useForm } from "react-hook-form";
 import { sizeType } from "@themes/fonts";
 import HidePasswordButton from "@components/intermediate/HidePasswordButton";
 import { CustomTextInput } from "@utils/types/InputType";
+import { ValidationErrorMessageType } from "@utils/types/FormType";
+import { customStyles } from "@themes/styles";
 
 type Props = {
   inputData: CustomTextInput;
   control: ReturnType<typeof useForm>["control"];
+  validationErrorMessage?: ValidationErrorMessageType | null;
 };
 
-const PharmacinTextInput = ({ inputData, control }: Props) => {
+const PharmacinTextInput = ({ inputData, control, validationErrorMessage }: Props) => {
   const [hidePass, setHidePass] = useState(true);
 
   const { field } = useController({
@@ -27,7 +30,7 @@ const PharmacinTextInput = ({ inputData, control }: Props) => {
   return (
     <View style={styles.mainContainer}>
       {inputData.placeholderPosition === "out" && <Text style={[styles.placeholder, sizeType.H3]}>{inputData.placeholder}</Text>}
-      <View style={[styles.container, inputData.type === "static" ? styles.containerStatic : styles.containerDynamic]}>
+      <View style={[styles.container, inputData.type === "static" ? styles.containerStatic : styles.containerDynamic, { borderColor: validationErrorMessage ? colors.Danger : colors.Border }]}>
         <TextInput
           value={field.value}
           placeholder={inputData.placeholderPosition === "out" ? "" : inputData.placeholder}
@@ -41,6 +44,12 @@ const PharmacinTextInput = ({ inputData, control }: Props) => {
 
         {inputData.type === "password" && <HidePasswordButton hide={hidePass} onPress={onHidePass} />}
       </View>
+
+      {validationErrorMessage && (
+        <Text numberOfLines={1} style={[customStyles.errorMessage, sizeType.H4]}>
+          {validationErrorMessage.message}
+        </Text>
+      )}
     </View>
   );
 };
@@ -64,7 +73,6 @@ const styles = StyleSheet.create({
   },
   containerDynamic: {
     borderWidth: 1,
-    borderColor: colors.Border,
   },
   input: {
     color: colors.Black,

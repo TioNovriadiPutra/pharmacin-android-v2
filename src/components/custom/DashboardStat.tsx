@@ -1,19 +1,17 @@
 import { StyleSheet, View } from "react-native";
 import React from "react";
-import { useRecoilValue } from "recoil";
-import { dashboardStatState } from "@store/atom/dashboardState";
 import DashboardStatItem from "@components/intermediate/DashboardStatItem";
+import { useRecoilValue } from "recoil";
+import { dashboardStatSelectorFamily } from "@store/selector/dashboardSelector";
 
-const DashboardStat = () => {
-  const dashboardState = useRecoilValue(dashboardStatState);
+type Props = {
+  data?: Array<any>;
+};
 
-  return (
-    <View style={styles.container}>
-      {dashboardState.map((item, index) => (
-        <DashboardStatItem key={index.toString()} statData={item} />
-      ))}
-    </View>
-  );
+const DashboardStat = ({ data }: Props) => {
+  const statData = useRecoilValue(dashboardStatSelectorFamily(data));
+
+  return <View style={styles.container}>{statData && statData.map((item, index) => <DashboardStatItem key={index.toString()} statData={item} />)}</View>;
 };
 
 export default DashboardStat;

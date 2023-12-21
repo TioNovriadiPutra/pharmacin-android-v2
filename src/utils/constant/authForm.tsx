@@ -31,10 +31,22 @@ const regisForm: AuthFormType = {
   inputs: [
     [
       {
-        name: "fullName",
+        name: "clinicPhone",
+        defaultValue: null,
+        type: "phone",
+        placeholder: "Nomor Telepon",
+      },
+      {
+        name: "clinicName",
         defaultValue: null,
         type: "text",
-        placeholder: "Nama Lengkap",
+        placeholder: "Nama Klinik",
+      },
+      {
+        name: "phone",
+        defaultValue: null,
+        type: "phone",
+        placeholder: "Nomor Handphone",
       },
       {
         name: "gender",
@@ -53,22 +65,10 @@ const regisForm: AuthFormType = {
         ],
       },
       {
-        name: "phone",
-        defaultValue: null,
-        type: "phone",
-        placeholder: "Nomor Handphone",
-      },
-      {
-        name: "clinicName",
+        name: "fullName",
         defaultValue: null,
         type: "text",
-        placeholder: "Nama Klinik",
-      },
-      {
-        name: "clinicPhone",
-        defaultValue: null,
-        type: "phone",
-        placeholder: "Nomor Telepon",
+        placeholder: "Nama Lengkap",
       },
     ],
     [

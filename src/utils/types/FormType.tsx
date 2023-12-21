@@ -20,4 +20,14 @@ interface ShoppingCartType {
   headers: string[];
 }
 
-export { FormType, AuthFormType, TransactionFormType, ShoppingCartType };
+interface ValidationErrorType {
+  error: { message: ValidationErrorMessageType[]; code: number };
+}
+
+interface ValidationErrorMessageType {
+  rule: string;
+  field: string;
+  message: string;
+}
+
+export { FormType, AuthFormType, TransactionFormType, ShoppingCartType, ValidationErrorType, ValidationErrorMessageType };

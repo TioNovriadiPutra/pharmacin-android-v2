@@ -29,5 +29,6 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     color: colors.LightGray,
+    textAlign: "center",
   },
 });

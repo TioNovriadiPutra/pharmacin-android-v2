@@ -1,9 +1,12 @@
 import axios from "axios";
 import ENDPOINT from "@utils/config/Endpoint";
 import { useSetRecoilState } from "recoil";
-import { authTokenState, clinicIdState, userIdState } from "@store/atom/authState";
+import { authTokenState, clinicIdState, loginErrorState, userIdState } from "@store/atom/authState";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
+import { ValidationErrorType } from "@utils/types/FormType";
+import { ToastAndroid } from "react-native";
+import { useQueryClient } from "@tanstack/react-query";
 
 const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,6 +14,9 @@ const useAuth = () => {
   const setAuthToken = useSetRecoilState(authTokenState);
   const setUserId = useSetRecoilState(userIdState);
   const setClinicId = useSetRecoilState(clinicIdState);
+  const setError = useSetRecoilState(loginErrorState);
+
+  const queryClient = useQueryClient();
 
   const login = async (email: string, password: string) => {
     setIsLoading(true);
@@ -28,19 +34,36 @@ const useAuth = () => {
         AsyncStorage.setItem("@token", token);
         AsyncStorage.setItem("@userId", JSON.stringify(userId));
         AsyncStorage.setItem("@clinicId", JSON.stringify(clinicId));
+        queryClient.invalidateQueries({ queryKey: ["getUserProfile", "dashboardReport"] });
       })
       .catch((error) => {
-        console.log(error.response.data.message);
+        if (error.response.data.error.code === "422") {
+          setError(error.response.data as ValidationErrorType);
+        } else {
+          ToastAndroid.show(error.response.data.error.message, ToastAndroid.LONG);
+        }
       })
       .finally(() => {
         setIsLoading(false);
       });
   };
 
+  const logout = async () => {
+    setIsLoading(true);
+    setAuthToken(null);
+    setUserId(null);
+    setClinicId(null);
+    await AsyncStorage.removeItem("@token");
+    await AsyncStorage.removeItem("@userId");
+    await AsyncStorage.removeItem("@clinicId");
+    queryClient.clear();
+    setIsLoading(false);
+  };
+
   const isLoggedIn = async () => {
     setIsLoading(true);
 
-    const authToken = await AsyncStorage.getItem("@authToken");
+    const authToken = await AsyncStorage.getItem("@token");
     const userId = await AsyncStorage.getItem("@userId");
     const clinicId = await AsyncStorage.getItem("@clinicId");
 
@@ -60,6 +83,7 @@ const useAuth = () => {
   return {
     isLoading,
     login,
+    logout,
   };
 };
 

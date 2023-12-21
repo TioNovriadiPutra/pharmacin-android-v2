@@ -1,5 +1,5 @@
 import React from "react";
-import { Drawer, Stack, StackBukuBesar, StackManajemen, StackObat, StackPabrikan, StackPembelian, StackPenjualan, StackStock } from "@utils/constant/navigation";
+import { Drawer, StackBukuBesar, StackManajemen, StackObat, StackPabrikan, StackPembelian, StackPengaturan, StackPenjualan, StackStock } from "@utils/constant/navigation";
 import Dashboard from "@pages/app/Dashboard";
 import CustomDrawer from "@components/custom/CustomDrawer";
 import Notifikasi from "@pages/app/Notifikasi";
@@ -21,6 +21,7 @@ import KaryawanManajemen from "@pages/app/manajemen/KaryawanManajemen";
 import RiwayatKasirManajemen from "@pages/app/manajemen/RiwayatKasirManajemen";
 import DetailOpnameStock from "@pages/app/stock/DetailOpnameStock";
 import DetailObat from "@pages/app/obat/DetailObat";
+import Pengaturan from "@pages/app/pengaturan/Pengaturan";
 
 const AppStack = () => {
   return (
@@ -44,6 +45,7 @@ const AppStack = () => {
       <Drawer.Screen name="Pembelian" component={PembelianStack} options={{ headerShown: false }} />
       <Drawer.Screen name="BukuBesar" component={BukuBesarStack} options={{ headerShown: false }} />
       <Drawer.Screen name="Manajemen" component={ManajemenStack} options={{ headerShown: false }} />
+      <Drawer.Screen name="Pengaturan" component={PengaturanStack} options={{ headerShown: false }} />
     </Drawer.Navigator>
   );
 };
@@ -112,6 +114,14 @@ const ManajemenStack = () => {
       <StackManajemen.Screen name="KaryawanManajemen" component={KaryawanManajemen} options={{ headerShown: false }} />
       <StackManajemen.Screen name="RiwayatKasirManajemen" component={RiwayatKasirManajemen} options={{ headerShown: false }} />
     </StackManajemen.Navigator>
+  );
+};
+
+const PengaturanStack = () => {
+  return (
+    <StackPengaturan.Navigator initialRouteName="PengaturanPengaturan">
+      <StackPengaturan.Screen name="PengaturanPengaturan" component={Pengaturan} options={{ headerShown: false }} />
+    </StackPengaturan.Navigator>
   );
 };
 

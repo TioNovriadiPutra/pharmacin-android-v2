@@ -1,4 +1,4 @@
-import { DrawerItem } from "@utils/types/DrawerType";
+import { DrawerItem, DrawerSubItem } from "@utils/types/DrawerType";
 
 export const drawerItemList: DrawerItem[] = [
   {
@@ -116,5 +116,18 @@ export const drawerItemList: DrawerItem[] = [
         destination: "RiwayatKasirManajemen",
       },
     ],
+  },
+];
+
+export const drawerProfile: DrawerSubItem[] = [
+  {
+    label: "Pengaturan",
+    destination: "PengaturanPengaturan",
+    icon: require("@assets/images/setting.png"),
+  },
+  {
+    label: "Keluar",
+    destination: "",
+    icon: require("@assets/images/logout.png"),
   },
 ];

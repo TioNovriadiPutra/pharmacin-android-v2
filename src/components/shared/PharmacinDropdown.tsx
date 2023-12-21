@@ -6,13 +6,16 @@ import { sizeType } from "@themes/fonts";
 import Animated, { interpolate, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { CustomDropdownInput, DropdownItem } from "@utils/types/InputType";
 import DropdownMenu from "@components/intermediate/DropdownMenu";
+import { ValidationErrorMessageType } from "@utils/types/FormType";
+import { customStyles } from "@themes/styles";
 
 type Props = {
   inputData: CustomDropdownInput;
   control: ReturnType<typeof useForm>["control"];
+  validationErrorMessage?: ValidationErrorMessageType | null;
 };
 
-const PharmacinDropdown = ({ inputData, control }: Props) => {
+const PharmacinDropdown = ({ inputData, control, validationErrorMessage }: Props) => {
   const [showDrop, setShowDrop] = useState(false);
 
   const dropdownAnim = useSharedValue(0);
@@ -46,17 +49,21 @@ const PharmacinDropdown = ({ inputData, control }: Props) => {
     };
   });
 
+  console.log(validationErrorMessage);
+
   return (
     <View style={styles.mainContainer}>
       {inputData.placeholderPosition === "out" && <Text style={[styles.placeholder, sizeType.H3]}>{inputData.placeholder}</Text>}
 
-      <TouchableOpacity style={styles.container} onPress={onDropdown}>
+      <TouchableOpacity style={[styles.container, { borderColor: validationErrorMessage ? colors.Danger : colors.Border }]} onPress={onDropdown}>
         <Text style={[styles.input, sizeType.H4, { color: field.value === null ? colors.Placeholder : colors.Black }]}>
           {field.value === null ? (inputData.placeholderPosition === "out" ? "" : inputData.placeholder) : field.value.label}
         </Text>
 
         <Animated.Image source={require("@assets/images/dropdown.png")} style={dropdownIconAnimatedStyle} />
       </TouchableOpacity>
+
+      {validationErrorMessage && <Text style={[customStyles.errorMessage, sizeType.H4]}>{validationErrorMessage.message}</Text>}
 
       <DropdownMenu dropdownItem={inputData.items} anim={dropdownAnim} chooseItem={chooseItem} />
     </View>
@@ -71,7 +78,6 @@ const styles = StyleSheet.create({
   },
   container: {
     borderWidth: 1,
-    borderColor: colors.Border,
     borderRadius: 10,
     flexDirection: "row",
     alignItems: "center",

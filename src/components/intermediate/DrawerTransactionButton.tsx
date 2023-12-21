@@ -17,7 +17,7 @@ const DrawerTransactionButton = ({ navigation }: Props) => {
   const buttonAnim = useSharedValue(0);
 
   const buttonAnimatedStyle = useAnimatedStyle(() => {
-    const marginHorizontal = interpolate(buttonAnim.value, [0, 1], [-5, 0]);
+    const marginHorizontal = interpolate(buttonAnim.value, [0, 1], [13, 18]);
     const paddingLeft = interpolate(buttonAnim.value, [0, 1], [11, 45]);
 
     return {

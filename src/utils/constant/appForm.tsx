@@ -5,21 +5,21 @@ const addPabrikForm: FormType = {
   inputs: [
     [
       {
-        name: "drugFactoryName",
+        name: "factoryName",
         defaultValue: null,
         placeholder: "Pabrik",
         placeholderPosition: "out",
         type: "text",
       },
       {
-        name: "drugFactoryEmail",
+        name: "factoryEmail",
         defaultValue: null,
         placeholder: "Email",
         placeholderPosition: "out",
         type: "text",
       },
       {
-        name: "drugFactoryPhone",
+        name: "factoryPhone",
         defaultValue: null,
         placeholder: "Telepon",
         placeholderPosition: "out",

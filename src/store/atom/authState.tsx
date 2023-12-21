@@ -1,3 +1,4 @@
+import { ValidationErrorType } from "@utils/types/FormType";
 import { atom } from "recoil";
 
 const authTokenState = atom<string | null>({
@@ -15,4 +16,14 @@ const clinicIdState = atom<number | null>({
   default: null,
 });
 
-export { authTokenState, userIdState, clinicIdState };
+const loginErrorState = atom<ValidationErrorType | null>({
+  key: "loginErrorState",
+  default: null,
+});
+
+const regisErrorState = atom<ValidationErrorType | null>({
+  key: "regisErrorState",
+  default: null,
+});
+
+export { authTokenState, userIdState, clinicIdState, loginErrorState, regisErrorState };

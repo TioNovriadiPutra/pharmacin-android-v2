@@ -32,4 +32,10 @@ export const customStyles = StyleSheet.create({
     flex: 1,
     gap: 12,
   },
+  errorMessage: {
+    color: colors.Danger,
+    paddingLeft: 20,
+    position: "absolute",
+    top: "90%",
+  },
 });

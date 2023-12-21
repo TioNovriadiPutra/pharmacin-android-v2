@@ -4,11 +4,13 @@ import { cashierStatusState } from "@store/atom/dashboardState";
 import { obatShowAddModalState } from "@store/atom/obatState";
 import { pabrikanShowAddModalState } from "@store/atom/pabrikanState";
 import { CustomHeader } from "@utils/types/HeaderType";
-import { AppPenjualanStackParamType } from "@utils/types/RootStackParamType";
+import { AppPembelianStackParamType, AppPenjualanStackParamType } from "@utils/types/RootStackParamType";
 import React from "react";
 import { setRecoil } from "recoil-nexus";
 
-const navigationRef = React.createRef<NavigationContainerRef<AppPenjualanStackParamType>>();
+type AppStackParamType = AppPenjualanStackParamType | AppPembelianStackParamType;
+
+const navigationRef = React.createRef<NavigationContainerRef<AppStackParamType>>();
 
 const dashboardHeaderOpen: CustomHeader = {
   title: "Dashboard",
@@ -67,7 +69,7 @@ const kelolaPenjualanHeader: CustomHeader = {
         label: "Tambah Penjualan",
         btnType: "SUCCESS",
         onPress: () => {
-          navigationRef.current?.navigate("TambahPenjualan");
+          navigationRef.current?.navigate("TambahPenjualan" as never);
         },
       },
     },
@@ -133,6 +135,13 @@ const kategoriObatHeader: CustomHeader = {
   subTitle: "/ Kategori",
   function: [
     {
+      type: "button",
+      functionItem: {
+        label: "Tambah Kategori",
+        btnType: "SUCCESS",
+      },
+    },
+    {
       type: "search",
       functionItem: {
         name: "drugCategorySearch",
@@ -196,4 +205,33 @@ const pabrikanHeader: CustomHeader = {
   ],
 };
 
-export { navigationRef, dashboardHeaderOpen, dashboardHeaderClose, penjualanHeader, kelolaPenjualanHeader, stockHeader, stockOpnameHeader, kategoriObatHeader, obatHeader, pabrikanHeader };
+const pembelianHeader: CustomHeader = {
+  title: "Pembelian",
+  subTitle: "/ Kelola Pembelian",
+  function: [
+    {
+      type: "button",
+      functionItem: {
+        label: "Tambah Pembelian",
+        btnType: "SUCCESS",
+        onPress: () => {
+          navigationRef.current?.navigate("TambahPembelian" as never);
+        },
+      },
+    },
+  ],
+};
+
+export {
+  navigationRef,
+  dashboardHeaderOpen,
+  dashboardHeaderClose,
+  penjualanHeader,
+  kelolaPenjualanHeader,
+  stockHeader,
+  stockOpnameHeader,
+  kategoriObatHeader,
+  obatHeader,
+  pabrikanHeader,
+  pembelianHeader,
+};

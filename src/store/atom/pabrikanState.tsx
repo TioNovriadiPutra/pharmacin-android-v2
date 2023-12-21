@@ -1,4 +1,4 @@
-import { TableType } from "@utils/types/TableType";
+import { ValidationErrorType } from "@utils/types/FormType";
 import { atom } from "recoil";
 
 const pabrikanShowAddModalState = atom<boolean>({
@@ -11,57 +11,9 @@ const pabrikanShowDetailModalState = atom<boolean>({
   default: false,
 });
 
-const pabrikanTableDataState = atom<TableType>({
-  key: "pabrikanTableDataState",
-  default: {
-    headers: ["ID", "Nama Pabrik", "Email", "Telepon"],
-    data: [
-      {
-        id: 1,
-        item: [
-          {
-            label: "000000",
-            type: "text",
-          },
-          {
-            label: "Test Nama Pabrik",
-            type: "text",
-          },
-          {
-            label: "test@gmail.com",
-            type: "text",
-          },
-          {
-            label: "081234567890",
-            type: "text",
-          },
-        ],
-      },
-      {
-        id: 2,
-        item: [
-          {
-            label: "000000",
-            type: "text",
-          },
-          {
-            label: "Test Nama Pabrik 2",
-            type: "text",
-          },
-          {
-            label: "test@gmail.com",
-            type: "text",
-          },
-          {
-            label: "081234567890",
-            type: "text",
-          },
-        ],
-      },
-    ],
-    tableAction: ["edit", "delete"],
-    detailDest: "DetailPabrikan",
-  },
+const pabrikanAddErrorState = atom<ValidationErrorType | null>({
+  key: "pabrikanAddErrorState",
+  default: null,
 });
 
 const pabrikanDetailActiveScreenState = atom<number>({
@@ -69,4 +21,4 @@ const pabrikanDetailActiveScreenState = atom<number>({
   default: 0,
 });
 
-export { pabrikanTableDataState, pabrikanShowAddModalState, pabrikanDetailActiveScreenState, pabrikanShowDetailModalState };
+export { pabrikanShowAddModalState, pabrikanAddErrorState, pabrikanDetailActiveScreenState, pabrikanShowDetailModalState };

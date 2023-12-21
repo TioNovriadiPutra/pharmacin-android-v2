@@ -6,6 +6,7 @@ import {
   AppObatStackParamType,
   AppPabrikanParamType,
   AppPembelianStackParamType,
+  AppPengaturanStackParamType,
   AppPenjualanStackParamType,
   AppRootDrawerParamType,
   AppStockStackParamType,
@@ -20,6 +21,7 @@ const StackPabrikan = createNativeStackNavigator<AppPabrikanParamType>();
 const StackPembelian = createNativeStackNavigator<AppPembelianStackParamType>();
 const StackBukuBesar = createNativeStackNavigator<AppBukuBesarStackParamType>();
 const StackManajemen = createNativeStackNavigator<AppManajemenStackParamType>();
+const StackPengaturan = createNativeStackNavigator<AppPengaturanStackParamType>();
 const Drawer = createDrawerNavigator<AppRootDrawerParamType>();
 
-export { Stack, Drawer, StackPenjualan, StackStock, StackObat, StackPabrikan, StackPembelian, StackBukuBesar, StackManajemen };
+export { Stack, Drawer, StackPenjualan, StackStock, StackObat, StackPabrikan, StackPembelian, StackBukuBesar, StackManajemen, StackPengaturan };

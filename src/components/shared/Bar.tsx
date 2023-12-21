@@ -13,5 +13,6 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: colors.Bar,
     marginVertical: 24,
+    marginHorizontal: 15,
   },
 });

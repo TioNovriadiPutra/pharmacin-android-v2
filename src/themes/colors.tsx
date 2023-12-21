@@ -26,4 +26,5 @@ export const colors = {
   TableHead: "#969696",
   BorderTable: "#F2F2F3",
   PageDefault: "#F9F9FC",
+  Profile: "#989898",
 };

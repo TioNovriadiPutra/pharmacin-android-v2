@@ -11,6 +11,7 @@ interface DrawerItem {
 interface DrawerSubItem {
   label: string;
   destination: string;
+  icon?: ImageSourcePropType;
 }
 
 export { DrawerItem, DrawerSubItem };

@@ -10,6 +10,7 @@ import useDrawer from "@hooks/useDrawer";
 import { useRecoilValue } from "recoil";
 import { drawerBackdropStatusState, drawerPressIndexState } from "@store/atom/drawerState";
 import DrawerTransactionButton from "@components/intermediate/DrawerTransactionButton";
+import DrawerAccount from "@components/intermediate/DrawerAccount";
 
 const WIDTH = Dimensions.get("window").width;
 
@@ -58,6 +59,7 @@ const CustomDrawer = ({ navigation }: Props) => {
         <DrawerItemList navigation={navigation} onCloseDrawer={onCloseDrawer} onOpenDrawer={onOpenDrawer} />
         <DrawerTransactionButton navigation={navigation} />
         <Bar />
+        <DrawerAccount navigation={navigation} onCloseDrawer={onCloseDrawer} onOpenDrawer={onOpenDrawer} />
       </Animated.View>
     </View>
   );
@@ -71,7 +73,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.White,
     width: 68,
     paddingVertical: 24,
-    paddingHorizontal: 18,
     position: "absolute",
     left: 0,
     top: 0,

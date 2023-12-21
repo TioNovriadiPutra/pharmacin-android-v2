@@ -1,4 +1,5 @@
 import { ImageSourcePropType } from "react-native";
+import { TableDataType } from "./TableType";
 
 interface DashboardStatType {
   title: string;
@@ -14,6 +15,7 @@ interface DashboardTableDataType {
     parent: string;
     child?: string;
   };
+  data?: { id: number; item: TableDataType[] }[];
 }
 
 export { DashboardStatType, DashboardTableDataType };
