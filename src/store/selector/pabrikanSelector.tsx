@@ -1,5 +1,8 @@
-import { pabrikanShowDetailModalState } from "@store/atom/pabrikanState";
+import { showDetailModalState } from "@store/atom/globalState";
 import { colors } from "@themes/colors";
+import { ENDPOINT, queryClient } from "@utils/config/Endpoint";
+import { deleteFunction } from "@utils/helper/fetch";
+import { showToast } from "@utils/helper/toast";
 import { DetailDataType, MainDetailType, TableDataType, TableType } from "@utils/types/TableType";
 import { selectorFamily } from "recoil";
 import { setRecoil } from "recoil-nexus";
@@ -10,7 +13,7 @@ const pabrikanTableSelectorFamily = selectorFamily({
     if (!!data) {
       const tableData: TableType = {
         headers: ["ID", "Nama Pabrik", "Email", "Telepon"],
-        data: data.data[0].drugFactories.map((item: any): { id: number; item: TableDataType[] } => {
+        data: data.data.map((item: any): { id: number; item: TableDataType[] } => {
           return {
             id: item.id,
             item: [
@@ -33,16 +36,19 @@ const pabrikanTableSelectorFamily = selectorFamily({
             ],
           };
         }),
-        tableAction: ["edit", "delete"],
-        detailDest: "DetailPabrikan",
-      };
-
-      return tableData;
-    } else {
-      const tableData: TableType = {
-        headers: ["ID", "Nama Pabrik", "Email", "Telepon"],
-        data: [],
-        tableAction: ["edit", "delete"],
+        tableAction: [
+          {
+            type: "delete",
+            onPress: (id: number) =>
+              deleteFunction(`${ENDPOINT.factoryDefault}/${id}`, true)
+                .then(() => {
+                  queryClient.invalidateQueries({ queryKey: ["getClinicFactories"] });
+                })
+                .catch((error: any) => {
+                  showToast("failed", error.error.message);
+                }),
+          },
+        ],
         detailDest: "DetailPabrikan",
       };
 
@@ -84,7 +90,7 @@ const pabrikanDetailSelectorFamily = selectorFamily({
           ],
           type: "detail",
           onPress: () => {
-            setRecoil(pabrikanShowDetailModalState, true);
+            setRecoil(showDetailModalState, true);
           },
         },
         detailData: [
@@ -100,6 +106,26 @@ const pabrikanDetailSelectorFamily = selectorFamily({
                   },
                   {
                     label: item.generic_name,
+                    type: "text",
+                  },
+                  {
+                    label: item.drugCategory.category_name,
+                    type: "text",
+                  },
+                  {
+                    label: item.purchase_price,
+                    type: "currency",
+                  },
+                  {
+                    label: item.selling_price,
+                    type: "currency",
+                  },
+                  {
+                    label: item.dose,
+                    type: "text",
+                  },
+                  {
+                    label: item.stock ? item.stock.total_stock : 0,
                     type: "text",
                   },
                 ],

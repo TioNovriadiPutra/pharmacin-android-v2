@@ -4,11 +4,10 @@ import { RecoilRoot } from "recoil";
 import AppNav from "@navigation/AppNav";
 import RecoilNexus from "recoil-nexus";
 import * as SplashScreen from "expo-splash-screen";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "@utils/config/Endpoint";
 
 SplashScreen.preventAutoHideAsync();
-
-const queryClient = new QueryClient();
 
 const App = () => {
   return (

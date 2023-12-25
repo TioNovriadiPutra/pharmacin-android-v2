@@ -1,6 +1,6 @@
 import { Modal, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import React, { useEffect } from "react";
-import { SetterOrUpdater } from "recoil";
+import { useRecoilValue } from "recoil";
 import Animated, { useAnimatedStyle, useSharedValue } from "react-native-reanimated";
 import { customStyles } from "@themes/styles";
 import { onCloseModal, onOpenModal } from "@utils/helper/modalAnimHandler";
@@ -9,15 +9,16 @@ import { sizeType } from "@themes/fonts";
 import DetailList from "@components/intermediate/DetailList";
 import { MainDetailType } from "@utils/types/TableType";
 import DetailFooter from "@components/intermediate/DetailFooter";
+import { showDetailModalState } from "@store/atom/globalState";
 
 type Props = {
-  visible: boolean;
-  setShowModal: SetterOrUpdater<boolean>;
   title: string;
   detailData: MainDetailType;
 };
 
-const DetailModal = ({ visible, setShowModal, title, detailData }: Props) => {
+const DetailModal = ({ title, detailData }: Props) => {
+  const showDetailModal = useRecoilValue(showDetailModalState);
+
   const detailAnim = useSharedValue(0);
 
   const detailAnimatedStyle = useAnimatedStyle(() => {
@@ -27,19 +28,19 @@ const DetailModal = ({ visible, setShowModal, title, detailData }: Props) => {
   });
 
   useEffect(() => {
-    if (visible) {
+    if (showDetailModal) {
       onOpenModal(detailAnim);
     } else {
-      onCloseModal(detailAnim, setShowModal);
+      onCloseModal(detailAnim, "detail");
     }
-  }, [visible]);
+  }, [showDetailModal]);
 
   return (
-    <Modal visible={visible} transparent statusBarTranslucent>
-      <TouchableWithoutFeedback onPress={() => onCloseModal(detailAnim, setShowModal)}>
+    <Modal visible={showDetailModal} transparent statusBarTranslucent>
+      <TouchableWithoutFeedback onPress={() => onCloseModal(detailAnim, "detail")}>
         <View style={customStyles.backdrop}>
           <Animated.View style={[customStyles.modalContainer, styles.detailContainer, detailAnimatedStyle]}>
-            <BackButton left={46} top={34} onPress={() => onCloseModal(detailAnim, setShowModal)} />
+            <BackButton left={46} top={34} onPress={() => onCloseModal(detailAnim, "detail")} />
             <Text numberOfLines={1} style={[customStyles.title, sizeType.H1]}>
               Informasi {title}
             </Text>

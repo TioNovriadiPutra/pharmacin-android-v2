@@ -1,6 +1,6 @@
 interface CustomInput {
   name: string;
-  defaultValue?: string | number | null;
+  defaultValue?: string | number | DropdownItem | null;
   type: "text" | "password" | "dropdown" | "phone" | "static" | "currency" | "currencyStatic";
 }
 

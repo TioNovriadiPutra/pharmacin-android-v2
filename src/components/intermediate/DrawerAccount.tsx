@@ -1,7 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import useFecthData from "@hooks/useFecthData";
-import ENDPOINT from "@utils/config/Endpoint";
+import { ENDPOINT } from "@utils/config/Endpoint";
 import { useRecoilState } from "recoil";
 import { colors } from "@themes/colors";
 import { sizeType } from "@themes/fonts";
@@ -11,6 +10,7 @@ import useAuth from "@hooks/useAuth";
 import { drawerPressIndexState } from "@store/atom/drawerState";
 import CustomProfileSkeletonPlaceholder from "@components/custom/CustomProfileSkeletonPlaceholder";
 import { useQuery } from "@tanstack/react-query";
+import { getFunction } from "@utils/helper/fetch";
 
 type Props = {
   navigation: any;
@@ -21,7 +21,6 @@ type Props = {
 const DrawerAccount = ({ navigation, onCloseDrawer, onOpenDrawer }: Props) => {
   const [drawerIndex, setDrawerIndex] = useRecoilState(drawerPressIndexState);
 
-  const { getFunction } = useFecthData();
   const { logout } = useAuth();
   const { data, isLoading } = useQuery({ queryKey: ["userProfile"], queryFn: () => getFunction(ENDPOINT.userDefault, true) });
 

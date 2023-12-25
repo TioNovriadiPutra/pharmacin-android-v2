@@ -1,14 +1,14 @@
 import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { colors } from "@themes/colors";
-import { TableDataType } from "@utils/types/TableType";
+import { TableActionType, TableDataType } from "@utils/types/TableType";
 import OpnameDateValid from "@components/custom/OpnameDateValid";
 import TableColumn from "./TableColumn";
 import TableColumnAction from "./TableColumnAction";
 
 type Props = {
   contentData: { id: number; item: TableDataType[] }[];
-  tableAction?: Array<"edit" | "delete" | "invoice" | "opname">;
+  tableAction?: TableActionType[];
   detailDest?: string;
   nav?: any;
 };
@@ -38,7 +38,7 @@ const TableContent = ({ contentData, tableAction, detailDest, nav }: Props) => {
               return <TableColumn key={index.toString()} item={item} />;
             })}
 
-            {tableAction && <TableColumnAction tableAction={tableAction} />}
+            {tableAction && <TableColumnAction tableAction={tableAction} itemId={item.id} />}
           </TouchableOpacity>
         )}
       />

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import AuthStack from "@routes/AuthStack";
 import AppStack from "@routes/AppStack";
@@ -9,6 +9,7 @@ import { View } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import useAuth from "@hooks/useAuth";
+import CustomToast from "@components/custom/CustomToast";
 
 const AppNav = () => {
   const isAuthenticated = useRecoilValue(isAuthenticatesSelector);
@@ -31,6 +32,7 @@ const AppNav = () => {
 
   return (
     <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+      <CustomToast />
       <NavigationContainer ref={navigationRef}>{isAuthenticated ? <AppStack /> : <AuthStack />}</NavigationContainer>
     </View>
   );

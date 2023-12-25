@@ -1,22 +1,24 @@
 import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import React from "react";
+import { TableActionType } from "@utils/types/TableType";
 
 type Props = {
-  tableAction: Array<"edit" | "delete" | "invoice" | "opname">;
+  tableAction: TableActionType[];
+  itemId: number;
 };
 
-const TableColumnAction = ({ tableAction }: Props) => {
+const TableColumnAction = ({ tableAction, itemId }: Props) => {
   return (
     <View style={styles.container}>
       {tableAction.map((item, index) => (
-        <TouchableOpacity key={index.toString()}>
+        <TouchableOpacity key={index.toString()} onPress={() => item.onPress(itemId)}>
           <Image
             source={
-              item === "edit"
+              item.type === "edit"
                 ? require("@assets/images/edit.png")
-                : item === "delete"
+                : item.type === "delete"
                 ? require("@assets/images/delete.png")
-                : item === "invoice"
+                : item.type === "invoice"
                 ? require("@assets/images/invoice.png")
                 : require("@assets/images/opname.png")
             }

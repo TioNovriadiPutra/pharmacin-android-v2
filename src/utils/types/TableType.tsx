@@ -4,8 +4,13 @@ import { AppObatStackParamType, AppPabrikanParamType, AppStockStackParamType } f
 interface TableType {
   headers: string[];
   data: { id: number; item: TableDataType[] }[];
-  tableAction?: Array<"edit" | "delete" | "invoice" | "opname">;
+  tableAction?: TableActionType[];
   detailDest?: keyof AppPabrikanParamType | keyof AppStockStackParamType | keyof AppObatStackParamType;
+}
+
+interface TableActionType {
+  type: "edit" | "delete" | "invoice" | "opname";
+  onPress: (id: number) => void;
 }
 
 interface TableDataType {
@@ -41,4 +46,4 @@ interface MainDetailStatType {
   textColor: string;
 }
 
-export { TableType, TableDataType, DetailDataType, MainDetailType, MainDetailDataType, MainDetailStatType, SwitchTableType };
+export { TableType, TableActionType, TableDataType, DetailDataType, MainDetailType, MainDetailDataType, MainDetailStatType, SwitchTableType };

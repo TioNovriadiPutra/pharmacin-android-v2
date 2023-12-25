@@ -2,6 +2,15 @@ import { Dimensions, StyleSheet } from "react-native";
 import { colors } from "./colors";
 
 export const WIDTH = Dimensions.get("window").width;
+export const HEIGHT = Dimensions.get("window").height;
+
+export const RPW = (dimension: number): number => {
+  return (dimension / 100) * WIDTH;
+};
+
+export const RPH = (dimension: number): number => {
+  return (dimension / 100) * HEIGHT;
+};
 
 export const customStyles = StyleSheet.create({
   backdrop: {
@@ -37,5 +46,9 @@ export const customStyles = StyleSheet.create({
     paddingLeft: 20,
     position: "absolute",
     top: "90%",
+  },
+  imageResponsive: {
+    aspectRatio: 1194 / 834,
+    resizeMode: "contain",
   },
 });

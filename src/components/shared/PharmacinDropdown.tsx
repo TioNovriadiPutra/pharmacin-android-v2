@@ -49,8 +49,6 @@ const PharmacinDropdown = ({ inputData, control, validationErrorMessage }: Props
     };
   });
 
-  console.log(validationErrorMessage);
-
   return (
     <View style={styles.mainContainer}>
       {inputData.placeholderPosition === "out" && <Text style={[styles.placeholder, sizeType.H3]}>{inputData.placeholder}</Text>}

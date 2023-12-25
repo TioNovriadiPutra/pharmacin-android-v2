@@ -1,27 +1,26 @@
 import { Modal, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native";
 import React, { useEffect } from "react";
 import { customStyles } from "@themes/styles";
-import { SetterOrUpdater } from "recoil";
+import { useRecoilValue } from "recoil";
 import Animated, { useAnimatedStyle, useSharedValue } from "react-native-reanimated";
 import BackButton from "./BackButton";
-import { FormType, ValidationErrorType } from "@utils/types/FormType";
+import { FormType } from "@utils/types/FormType";
 import { sizeType } from "@themes/fonts";
 import FormInputList from "@components/intermediate/FormInputList";
 import { useForm } from "react-hook-form";
 import Bar from "./Bar";
 import SubmitButton from "./SubmitButton";
 import { onCloseModal, onOpenModal } from "@utils/helper/modalAnimHandler";
+import { modalValidationErrorState, showAddModalState } from "@store/atom/globalState";
 
 type Props = {
-  visible: boolean;
-  setShowModal: SetterOrUpdater<boolean>;
   formData: FormType;
-  validationError: ValidationErrorType | null;
-  setValidationError: SetterOrUpdater<ValidationErrorType | null>;
-  onSubmit?: (data: any) => void;
 };
 
-const AddFormModal = ({ visible, setShowModal, formData, validationError, setValidationError, onSubmit }: Props) => {
+const AddFormModal = ({ formData }: Props) => {
+  const showAddModal = useRecoilValue(showAddModalState);
+  const modalValidationError = useRecoilValue(modalValidationErrorState);
+
   const formAnim = useSharedValue(0);
 
   const { control, handleSubmit } = useForm();
@@ -33,29 +32,32 @@ const AddFormModal = ({ visible, setShowModal, formData, validationError, setVal
   });
 
   useEffect(() => {
-    if (visible) {
+    if (showAddModal) {
       onOpenModal(formAnim);
     } else {
-      onCloseModal(formAnim, setShowModal, setValidationError);
+      onCloseModal(formAnim, "form");
     }
-  }, [visible]);
+  }, [showAddModal]);
 
   return (
-    <Modal visible={visible} transparent statusBarTranslucent>
-      <TouchableWithoutFeedback onPress={() => onCloseModal(formAnim, setShowModal, setValidationError)}>
+    <Modal visible={showAddModal} transparent statusBarTranslucent>
+      <TouchableWithoutFeedback onPress={() => onCloseModal(formAnim, "form")}>
         <View style={customStyles.backdrop}>
           <Animated.View style={[customStyles.modalContainer, styles.formContainer, formAnimatedStyle]}>
-            <BackButton left={46} top={34} onPress={() => onCloseModal(formAnim, setShowModal, setValidationError)} />
+            <BackButton left={46} top={34} onPress={() => onCloseModal(formAnim, "form")} />
 
             <Text numberOfLines={1} style={[customStyles.title, sizeType.H1]}>
               {formData.title}
             </Text>
 
             <View style={styles.content}>
-              <FormInputList formInputs={formData.inputs} control={control} validationError={validationError} />
+              <FormInputList formInputs={formData.inputs} control={control} validationError={modalValidationError} />
 
               <Bar />
-              {formData.submitButton && <SubmitButton label={formData.submitButton.label} buttonType={formData.submitButton.btnType} labelSize="H2" onPress={onSubmit && handleSubmit(onSubmit)} />}
+
+              {formData.submitButton && (
+                <SubmitButton label={formData.submitButton.label} buttonType={formData.submitButton.btnType} labelSize="H2" onPress={handleSubmit(formData.submitButton.onPress)} />
+              )}
             </View>
           </Animated.View>
         </View>

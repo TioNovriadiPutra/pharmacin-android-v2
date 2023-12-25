@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     marginBottom: 46,
     marginHorizontal: 15,
   },
+
   logoTitle: {
     color: colors.Primary,
   },

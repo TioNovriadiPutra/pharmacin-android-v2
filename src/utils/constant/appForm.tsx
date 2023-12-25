@@ -1,4 +1,8 @@
+import { modalValidationErrorState, showAddModalState } from "@store/atom/globalState";
+import { ENDPOINT, queryClient } from "@utils/config/Endpoint";
+import { postFunction } from "@utils/helper/fetch";
 import { FormType, TransactionFormType } from "@utils/types/FormType";
+import { setRecoil } from "recoil-nexus";
 
 const addPabrikForm: FormType = {
   title: "Tambah Pabrik",
@@ -30,87 +34,44 @@ const addPabrikForm: FormType = {
   submitButton: {
     label: "Tambah Pabrik",
     btnType: "SUCCESS",
+    onPress: (data: any) =>
+      postFunction(ENDPOINT.factoryDefault, data, true)
+        .then(() => {
+          setRecoil(showAddModalState, false);
+          queryClient.invalidateQueries({ queryKey: ["getClinicFactories"] });
+        })
+        .catch((error: any) => {
+          setRecoil(modalValidationErrorState, error);
+        }),
   },
 };
 
-const addObatForm: FormType = {
-  title: "Tambah Obat",
+const addKategoriObatForm: FormType = {
+  title: "Tambah Kategori",
   inputs: [
     [
       {
-        name: "drugName",
+        name: "categoryName",
         defaultValue: null,
-        placeholder: "Nama Obat",
+        placeholder: "Nama Kategori",
         placeholderPosition: "out",
         type: "text",
-      },
-      {
-        name: "drugGeneric",
-        defaultValue: null,
-        placeholder: "Nama Generik",
-        placeholderPosition: "out",
-        type: "text",
-      },
-      {
-        name: "dose",
-        defaultValue: null,
-        placeholder: "Takaran",
-        placeholderPosition: "out",
-        type: "text",
-      },
-      {
-        name: "drugCategoryId",
-        defaultValue: null,
-        placeholder: "Kategori",
-        placeholderPosition: "out",
-        type: "dropdown",
-        items: [
-          {
-            label: "Obat Keras",
-            value: 1,
-          },
-          {
-            label: "Obat Umut",
-            value: 2,
-          },
-        ],
-      },
-      {
-        name: "factoryId",
-        defaultValue: null,
-        placeholder: "Pabrikan",
-        placeholderPosition: "out",
-        type: "dropdown",
-        items: [
-          {
-            label: "Pharmacin",
-            value: 1,
-          },
-          {
-            label: "PT Cob Cob",
-            value: 2,
-          },
-        ],
-      },
-      {
-        name: "purchasePrice",
-        defaultValue: 0,
-        placeholder: "Harga Beli Pabrik",
-        placeholderPosition: "out",
-        type: "currency",
-      },
-      {
-        name: "sellingPrice",
-        defaultValue: 0,
-        placeholder: "Harga Jual",
-        placeholderPosition: "out",
-        type: "currency",
       },
     ],
   ],
   submitButton: {
-    label: "Tambah Obat",
+    label: "Tambah Kategori",
     btnType: "SUCCESS",
+    onPress: (data: any) => {
+      postFunction(ENDPOINT.drugCategoryDefault, data, true)
+        .then(() => {
+          setRecoil(showAddModalState, false);
+          queryClient.invalidateQueries({ queryKey: ["getClinicDrugCategories"] });
+        })
+        .catch((error: any) => {
+          setRecoil(modalValidationErrorState, error);
+        });
+    },
   },
 };
 
@@ -188,4 +149,4 @@ const sellingForm: TransactionFormType = {
   },
 };
 
-export { addPabrikForm, sellingForm, addObatForm };
+export { addPabrikForm, sellingForm, addKategoriObatForm };

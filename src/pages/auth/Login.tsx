@@ -5,7 +5,6 @@ import { colors } from "@themes/colors";
 import VectorContainer from "@containers/VectorContainer";
 import AuthForm from "@components/shared/AuthForm";
 import { loginForm } from "@utils/constant/authForm";
-import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
 import { loginErrorState } from "@store/atom/authState";
 import { useIsFocused } from "@react-navigation/native";
@@ -13,7 +12,6 @@ import { useIsFocused } from "@react-navigation/native";
 const Login = () => {
   const setErrorMessage = useSetRecoilState(loginErrorState);
 
-  const formState = useForm();
   const isFocused = useIsFocused();
 
   useEffect(() => {
@@ -26,7 +24,7 @@ const Login = () => {
     <Container color={colors.Primary} style={styles.container}>
       <VectorContainer />
       <Image source={require("@assets/images/logoFull.png")} style={styles.logo} />
-      <AuthForm formData={loginForm} handleForm={formState} />
+      <AuthForm formData={loginForm} />
     </Container>
   );
 };

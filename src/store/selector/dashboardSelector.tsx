@@ -35,8 +35,6 @@ const dashboardStatSelectorFamily = selectorFamily({
       ];
 
       return statData;
-    } else {
-      return null;
     }
   },
 });
@@ -90,8 +88,6 @@ const dashboardTableSelectorFamily = selectorFamily({
       ];
 
       return tableData;
-    } else {
-      return null;
     }
   },
 });

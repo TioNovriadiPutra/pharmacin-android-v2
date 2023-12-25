@@ -1,5 +1,5 @@
-import axios from "axios";
-import ENDPOINT from "@utils/config/Endpoint";
+import axios, { AxiosResponse } from "axios";
+import { ENDPOINT } from "@utils/config/Endpoint";
 import { useSetRecoilState } from "recoil";
 import { authTokenState, clinicIdState, loginErrorState, userIdState } from "@store/atom/authState";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { ValidationErrorType } from "@utils/types/FormType";
 import { ToastAndroid } from "react-native";
 import { useQueryClient } from "@tanstack/react-query";
+import { showToast } from "@utils/helper/toast";
 
 const useAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,8 +27,8 @@ const useAuth = () => {
         email,
         password,
       })
-      .then((response) => {
-        const { token, userId, clinicId } = response.data;
+      .then((response: AxiosResponse<any, any>) => {
+        const { token, userId, clinicId, message } = response.data;
         setAuthToken(token);
         setUserId(userId);
         setClinicId(clinicId);
@@ -35,12 +36,13 @@ const useAuth = () => {
         AsyncStorage.setItem("@userId", JSON.stringify(userId));
         AsyncStorage.setItem("@clinicId", JSON.stringify(clinicId));
         queryClient.invalidateQueries({ queryKey: ["getUserProfile", "dashboardReport"] });
+        showToast("success", message);
       })
-      .catch((error) => {
-        if (error.response.data.error.code === "422") {
+      .catch((error: any) => {
+        if (error.response.data.error.code === 422) {
           setError(error.response.data as ValidationErrorType);
         } else {
-          ToastAndroid.show(error.response.data.error.message, ToastAndroid.LONG);
+          showToast("failed", error.response.data.error.message);
         }
       })
       .finally(() => {

@@ -1,8 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainerRef } from "@react-navigation/native";
 import { cashierStatusState } from "@store/atom/dashboardState";
-import { obatShowAddModalState } from "@store/atom/obatState";
-import { pabrikanShowAddModalState } from "@store/atom/pabrikanState";
+import { showAddModalState } from "@store/atom/globalState";
 import { CustomHeader } from "@utils/types/HeaderType";
 import { AppPembelianStackParamType, AppPenjualanStackParamType } from "@utils/types/RootStackParamType";
 import React from "react";
@@ -139,6 +138,7 @@ const kategoriObatHeader: CustomHeader = {
       functionItem: {
         label: "Tambah Kategori",
         btnType: "SUCCESS",
+        onPress: () => setRecoil(showAddModalState, true),
       },
     },
     {
@@ -163,7 +163,7 @@ const obatHeader: CustomHeader = {
         label: "Tambah Obat",
         btnType: "SUCCESS",
         onPress: () => {
-          setRecoil(obatShowAddModalState, true);
+          setRecoil(showAddModalState, true);
         },
       },
     },
@@ -189,7 +189,7 @@ const pabrikanHeader: CustomHeader = {
         label: "Tambah Pabrik",
         btnType: "SUCCESS",
         onPress: () => {
-          setRecoil(pabrikanShowAddModalState, true);
+          setRecoil(showAddModalState, true);
         },
       },
     },
